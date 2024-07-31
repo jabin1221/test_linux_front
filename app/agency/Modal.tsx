@@ -8,7 +8,7 @@ const Modal = ({ children, onClose }) => {
         className="fixed top-0 left-0 w-full h-full backdrop-blur-md z-1"
         onClick={onClose}
       ></div>
-      <div className="fixed z-10 w-1/2transform -translate-x-1/2 -translate-y-1/2 border-none rounded shadow-xl top-1/2 left-1/2 bg-white max-w-112">
+      <div className="fixed z-10 w-1/2transform -translate-x-1/2 -translate-y-1/2 border-none rounded shadow-xl top-1/2 left-1/2 bg-white w-[860px]">
         {children}
       </div>
     </>

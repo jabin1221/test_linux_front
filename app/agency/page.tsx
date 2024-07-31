@@ -2,10 +2,10 @@
 import { createPortal } from "react-dom";
 import { useState } from "react";
 import Modal from "./Modal";
-import Bank from "./Bank";
+import Button from "./Button";
 import Modal_Frame from "./Modal_Frame";
 import Securities from "./Securities";
-import { banks, securities } from "./dummy_data";
+import { banks, securities, nationalTax, localTax } from "./dummy_data";
 export default function Page() {
   const [openModal, open] = useState(false);
   const [buttonType, changeButton] = useState("1");
@@ -28,36 +28,46 @@ export default function Page() {
         createPortal(
           <Modal onClose={closeModal}>
             <Modal_Frame onClose={closeModal} onClick={clickHeader}>
-              {buttonType === "1" ? (
-                <div className="flex flex-row flex-wrap m-3 max-w-156">
-                  {banks.map((bank) => (
-                    <Bank
+              {buttonType === "1"
+                ? banks.map((bank) => (
+                    <Button
                       key={bank.id}
                       src={bank.src}
                       name={bank.name}
                       onClick={buttonHandler}
                     />
-                  ))}
-                </div>
-              ) : (
-                ""
-              )}
-              {buttonType === "2" ? (
-                <div className="flex flex-row flex-wrap m-3 max-w-156">
-                  {securities.map((securitie) => (
-                    <Securities
+                  ))
+                : ""}
+              {buttonType === "2"
+                ? securities.map((securitie) => (
+                    <Button
                       key={securitie.id}
                       src={securitie.src}
                       name={securitie.name}
                       onClick={buttonHandler}
                     />
-                  ))}
-                </div>
-              ) : (
-                ""
-              )}
-              {buttonType === "3" ? "" : ""}
-              {buttonType === "4" ? "" : ""}
+                  ))
+                : ""}
+              {buttonType === "3"
+                ? nationalTax.map((tax) => (
+                    <Button
+                      key={tax.id}
+                      src={tax.src}
+                      name={tax.name}
+                      onClick={buttonHandler}
+                    />
+                  ))
+                : ""}
+              {buttonType === "4"
+                ? localTax.map((tax) => (
+                    <Button
+                      key={tax.id}
+                      src={tax.src}
+                      name={tax.name}
+                      onClick={buttonHandler}
+                    />
+                  ))
+                : ""}
             </Modal_Frame>
           </Modal>,
           document.body

@@ -2,7 +2,7 @@ const Modal_Frame = ({ children, onClose, onClick }) => {
   return (
     <>
       <div
-        className="bg-orange-900 p-2 m-0  text-sm text-white"
+        className="bg-purple-950 p-2 m-0  text-xl text-white"
         onClick={onClose}
       >
         <h2>
@@ -39,7 +39,12 @@ const Modal_Frame = ({ children, onClose, onClick }) => {
           지방세입납부
         </button>
       </div>
-      <div>{children}</div>
+      <div className="flex flex-row flex-wrap m-3 max-w-156">{children}</div>
+      <div className="flex justify-center ">
+        <button className="border w-48 h-20 m-2" onClick={onClose}>
+          닫기
+        </button>
+      </div>
     </>
   );
 };

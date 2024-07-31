@@ -78,3 +78,24 @@ export const securities = [
     name: "하나증권",
   },
 ];
+
+export const nationalTax = [
+  {
+    id: 1,
+    src: "/images/government/정부.png",
+    name: "국세",
+  },
+  {
+    id: 2,
+    src: "/images/government/정부.png",
+    name: "국고금",
+  },
+];
+
+export const localTax = [
+  {
+    id: 1,
+    src: "/images/government/정부.png",
+    name: "지방세입",
+  },
+];
