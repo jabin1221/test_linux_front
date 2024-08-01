@@ -1,14 +1,18 @@
 import Image from "next/image";
-const Button = ({ src, name, onClick }) => {
+import { useState } from "react";
+const Button = ({ id, src, name, onClick, isSelected }) => {
+  const clickHandler = () => {
+    onClick(event);
+  };
   return (
     <button
-      className="flex p-3  items-center border text-xl w-52 bank_img  hover:bg-orange-300"
+      id={id}
+      className={`flex p-3 ${
+        isSelected === true ? "bg-slate-500" : ""
+      } items-center border text-xl w-52 bank_img  hover:bg-orange-300`}
       value={name}
-      onClick={onClick}
+      onClick={clickHandler}
     >
-      {/* <span
-        className={`bank_logo bg-[url('/images/은행사-로고.jpg')] w-9  h-11 bg-no-repeat bg-[length:200px_556px] bg-[position:${x}_${y}]`}
-      ></span> */}
       <Image src={src} width={30} height={30} alt={name}></Image>
       {name}
     </button>

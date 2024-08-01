@@ -48,32 +48,32 @@ export const banks = [
 
 export const securities = [
   {
-    id: 1,
+    id: 10,
     src: "/images/securities/DB금융투자.jpg",
     name: "DB금융투자",
   },
   {
-    id: 2,
+    id: 11,
     src: "/images/securities/ibk투자증권.jpg",
     name: "IBK투자증권",
   },
   {
-    id: 3,
+    id: 12,
     src: "/images/securities/KB증권.jpg",
     name: "KB증권",
   },
   {
-    id: 4,
+    id: 13,
     src: "/images/securities/NH투자증권.jpg",
     name: "NH투자증권",
   },
   {
-    id: 5,
+    id: 14,
     src: "/images/securities/sk증권.jpg",
     name: "sk증권",
   },
   {
-    id: 6,
+    id: 15,
     src: "/images/securities/하나증권.jpg",
     name: "하나증권",
   },
@@ -81,12 +81,12 @@ export const securities = [
 
 export const nationalTax = [
   {
-    id: 1,
+    id: 16,
     src: "/images/government/정부.png",
     name: "국세",
   },
   {
-    id: 2,
+    id: 17,
     src: "/images/government/정부.png",
     name: "국고금",
   },
@@ -94,7 +94,7 @@ export const nationalTax = [
 
 export const localTax = [
   {
-    id: 1,
+    id: 18,
     src: "/images/government/정부.png",
     name: "지방세입",
   },

@@ -10,13 +10,15 @@ export default function Page() {
   const [openModal, open] = useState(false);
   const [buttonType, changeButton] = useState("1");
   const [buttonValue, changeValue] = useState("");
+  const [selectedButton, setSelectedButton] = useState("");
   const closeModal = () => open(false);
   const clickHeader = (event) => {
     changeButton(event.target.value);
   };
   const buttonHandler = (event) => {
-    console.log(event.target.value);
     changeValue(event.target.value);
+    setSelectedButton(event.target.id.toString());
+    console.log(selectedButton);
   };
   return (
     <div>
@@ -35,6 +37,8 @@ export default function Page() {
                       src={bank.src}
                       name={bank.name}
                       onClick={buttonHandler}
+                      isSelected={selectedButton === bank.id.toString()}
+                      id={bank.id}
                     />
                   ))
                 : ""}
@@ -45,6 +49,8 @@ export default function Page() {
                       src={securitie.src}
                       name={securitie.name}
                       onClick={buttonHandler}
+                      isSelected={selectedButton === securitie.id.toString()}
+                      id={securitie.id}
                     />
                   ))
                 : ""}
@@ -55,6 +61,8 @@ export default function Page() {
                       src={tax.src}
                       name={tax.name}
                       onClick={buttonHandler}
+                      isSelected={selectedButton === tax.id.toString()}
+                      id={tax.id}
                     />
                   ))
                 : ""}
@@ -65,6 +73,8 @@ export default function Page() {
                       src={tax.src}
                       name={tax.name}
                       onClick={buttonHandler}
+                      isSelected={selectedButton === tax.id.toString()}
+                      id={tax.id}
                     />
                   ))
                 : ""}
