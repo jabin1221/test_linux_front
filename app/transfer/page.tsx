@@ -4,32 +4,43 @@ import Input from "@/components/inputs/inputs";
 import SubmitButton from "@/components/submitbutton/SubmitButton";
 import { themeColor } from "@/styles/color";
 import { notoSansKr } from "@/styles/fonts";
+import axi from "@/utils/customAxios";
 import { useState } from "react";
 
 const TransferPage = ():JSX.Element => {
   
   const [amount, setAmount] = useState<string>("");     // 금액
-  const [bank, setBanck] = useState<number>(0);         // 은행 코드
+  const [bank, setBank] = useState<number>(0);         // 은행 코드
   const [account, setAccount] = useState<string>("");   // 보낼 계좌번호
   const [description, setDesc] = useState<string>("");  // 받는 사람 통장
   const [memo, setMemo] = useState<string>("");         // 내 통장 표기
 
+  const [buttonMessage, setMessage] = useState<string>("사기조회");
+  const [buttonColor, setColor] = useState<string>(themeColor);
+
   const [isVisible, setVisible] = useState<boolean>(false);
 
-  // const changeAmount = (inputNum:string):void => {
-  //   setAmount(inputNum);
-  // }
-
-  // const changeAccount = (input:string):void => {
-  //   setAccount(input);
-  // }
+  const setBankAndAccount = (bank: number, account: string) => {
+    setBank(bank);
+    setAccount(account);
+  }
 
   const submit = async (data:any) => {
     console.log(data);
   }
 
   const cheat = async (data:any) => {
-    console.log(data);
+    let response;
+    await axi.post('/account/cheat', {bank, account}).then((res) => {
+      response=res;
+      return
+    });
+    if (response.data === true) {
+      setMessage("사기꾼");
+    }
+    else {
+      setMessage("안전");
+    }
   }
 
 
@@ -54,9 +65,9 @@ const TransferPage = ():JSX.Element => {
                   <div className="flex w-full gap-1">
                     <div className="w-24">선택박스</div>
                     <div className="w-full">
-                      <Input id="account" type="number" label="받으실 분의 계좌번호를 입력해주세요" setInput={setAccount}/>        
+                      <Input id="account" type="number" label="받으실 분의 계좌번호를 입력해주세요" setInput={setAccount} value={account}/>        
                     </div>
-                    <SubmitButton color={themeColor} callback={cheat} data={{bank, account}} message="사기조회" width="6rem"/>
+                    <SubmitButton color={buttonColor} callback={cheat} data={{bank, account}} message={buttonMessage} width="6rem"/>
                   </div>
                 </div>
                 {/* 받는 분 통장 표기 */}
@@ -69,12 +80,12 @@ const TransferPage = ():JSX.Element => {
                 </div>
               </div>
               <div className="button-container w-full flex justify-center">
-                <SubmitButton color={themeColor} callback={submit} data={{amount, bank, account, description, memo}} message="보내기" width="66.666666%"/>
+                <SubmitButton color={buttonColor} callback={submit} data={{amount, bank, account, description, memo}} message="보내기" width="66.666666%"/>
               </div>   
             </form>
           </div>
         </div>
-        <BottomDrawer isVisible={isVisible} setVisible={setVisible}/>
+        <BottomDrawer isVisible={isVisible} setVisible={setVisible} setBankAndAccount={setBankAndAccount}/>
       </div>
   );
 }
