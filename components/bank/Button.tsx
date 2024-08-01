@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
-const Button = ({ id, src, name, onClick, isSelected }) => {
-  const clickHandler = () => {
+const Button = ({ id, src, name, onClick, onClose, isSelected }) => {
+  const clickHandler = (event) => {
     onClick(event);
+    onClose();
   };
   return (
     <button
