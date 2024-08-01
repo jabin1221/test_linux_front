@@ -15,7 +15,7 @@ const Modal_Frame = ({ children, onClose, onClick }) => {
   return (
     <>
       <div
-        className="bg-purple-950 p-2 m-0  text-xl text-white "
+        className="bg-[rgb(58,141,253)] p-2 m-0  text-xl text-white "
         onClick={clickHandler}
       >
         <h2>
