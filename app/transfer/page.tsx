@@ -1,11 +1,15 @@
 'use client'
+import BankSelect from "@/components/bank/bankselect";
+import { banks } from "@/components/bank/dummy_data";
 import { BottomDrawer } from "@/components/drawer/drawer";
 import Input from "@/components/inputs/inputs";
 import SubmitButton from "@/components/submitbutton/SubmitButton";
 import { themeColor } from "@/styles/color";
 import { notoSansKr } from "@/styles/fonts";
 import axi from "@/utils/customAxios";
-import { useState } from "react";
+import { cutname } from "@/utils/cutname";
+import { transformUnit } from "@/utils/transformunit";
+import { useEffect, useState } from "react";
 
 const TransferPage = ():JSX.Element => {
   
@@ -15,8 +19,11 @@ const TransferPage = ():JSX.Element => {
   const [description, setDesc] = useState<string>("");  // 받는 사람 통장
   const [memo, setMemo] = useState<string>("");         // 내 통장 표기
 
+  const [bankName, setName] = useState<string>("기관선택");
+  
   const [buttonMessage, setMessage] = useState<string>("사기조회");
   const [buttonColor, setColor] = useState<string>(themeColor);
+  const [displaValue, setDisplay] = useState<string>("");
 
   const [isVisible, setVisible] = useState<boolean>(false);
 
@@ -25,8 +32,19 @@ const TransferPage = ():JSX.Element => {
     setAccount(account);
   }
 
+  useEffect(() => {
+    setMessage("사기조회");
+  },[account])
+
+  useEffect(() => {
+    setDisplay(transformUnit(amount));
+  },[amount])
+
+  useEffect(() => {
+    cutname(bank, setName);
+  },[bank])
+
   const submit = async (data:any) => {
-    console.log(data);
   }
 
   const cheat = async (data:any) => {
@@ -56,14 +74,19 @@ const TransferPage = ():JSX.Element => {
             <form className="h-full flex flex-col justify-around">
               <div className="inputs-container flex flex-col gap-4">
                 {/* 금액 입력 */}
-                <div>
-                  <Input id="amount" type="number" label="이체하실 금액을 입력해주세요" setInput={setAmount}/>
+                <div className="flex">
+                  <Input id="amount" type="number" label="이체하실 금액을 입력해주세요" setInput={setAmount} value={displaValue}/>
+                  <div className="h-full flex flex-col justify-end text-xl ml-2">
+                    원
+                  </div>
                 </div>
                 {/* 은행/증권사 선택, 계좌번호 입력 */}
                 <div>
                   <div className="text-xs text-right pr-1 mb-1" onClick={() => {setVisible(true)}}>⌚최근/자주/내계좌</div>
                   <div className="flex w-full gap-1">
-                    <div className="w-24">선택박스</div>
+                    <div className="w-24">
+                      <BankSelect bankName={bankName} setBank={setBank}/>
+                    </div>
                     <div className="w-full">
                       <Input id="account" type="number" label="받으실 분의 계좌번호를 입력해주세요" setInput={setAccount} value={account}/>        
                     </div>
