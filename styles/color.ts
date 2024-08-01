@@ -1,0 +1,1 @@
+export const themeColor:string = "rgb(58,141,253)"
