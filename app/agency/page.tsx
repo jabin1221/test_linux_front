@@ -20,7 +20,7 @@ export default function Page() {
   };
   return (
     <div>
-      <input type="text" value={buttonValue} readOnly />{" "}
+      <input type="text" value={buttonValue || ""} readOnly />{" "}
       <button type="button" onClick={() => open(true)}>
         기관선택
       </button>
