@@ -3,6 +3,7 @@ import BankSelect from "@/components/bank/bankselect";
 import { banks } from "@/components/bank/dummy_data";
 import { BottomDrawer } from "@/components/drawer/drawer";
 import Input from "@/components/inputs/inputs";
+import ConfirmModal from "@/components/modal/confirmModal";
 import SubmitButton from "@/components/submitbutton/SubmitButton";
 import { themeColor } from "@/styles/color";
 import { notoSansKr } from "@/styles/fonts";
@@ -24,8 +25,12 @@ const TransferPage = ():JSX.Element => {
   const [buttonMessage, setMessage] = useState<string>("사기조회");
   const [buttonColor, setColor] = useState<string>(themeColor);
   const [displaValue, setDisplay] = useState<string>("");
+  const [isFraud, setFraud] = useState<boolean>(false);
 
   const [isVisible, setVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+  const [isConfirmed, setConfirm] = useState<boolean>(false);
 
   const setBankAndAccount = (bank: number, account: string) => {
     setBank(bank);
@@ -34,6 +39,8 @@ const TransferPage = ():JSX.Element => {
 
   useEffect(() => {
     setMessage("사기조회");
+    setFraud(false);
+    setConfirm(false);
   },[account])
 
   useEffect(() => {
@@ -45,20 +52,32 @@ const TransferPage = ():JSX.Element => {
   },[bank])
 
   const submit = async (data:any) => {
+    if (!isConfirmed) {
+      window.alert("사기계좌 여부를 확인해주시길 바랍니다.");
+      return
+    }
+
+    if (!bank || !account || !amount) {
+      window.alert("필수적인 정보를 모두 입력해주시기 바랍니다.");
+      return
+    }
+    setModalVisible(true);
   }
 
   const cheat = async (data:any) => {
-    let response;
+    let response:any;
     await axi.post('/account/cheat', {bank, account}).then((res) => {
       response=res;
       return
     });
-    if (response.data === true) {
+    if (response.data.result === true) {
       setMessage("사기꾼");
     }
     else {
       setMessage("안전");
     }
+    setConfirm(true);
+    setFraud(response.data.result);
   }
 
 
@@ -109,6 +128,7 @@ const TransferPage = ():JSX.Element => {
           </div>
         </div>
         <BottomDrawer isVisible={isVisible} setVisible={setVisible} setBankAndAccount={setBankAndAccount}/>
+        <ConfirmModal isVisible={modalVisible} setVisible={setModalVisible} isFraud={isFraud} amount={amount} bankName={bankName} account={account} display={displaValue}></ConfirmModal>
       </div>
   );
 }
